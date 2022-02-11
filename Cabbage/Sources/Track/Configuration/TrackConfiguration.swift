@@ -8,6 +8,7 @@
 
 import AVFoundation
 import CoreImage
+import UIKit
 
 public struct VideoConfigurationEffectInfo {
     public var time = CMTime.zero

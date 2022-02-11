@@ -106,11 +106,11 @@ class ViewController: UITableViewController {
             let transformKeyframeConfiguration: KeyframeVideoConfiguration<TransformKeyframeValue> = {
                 let configuration = KeyframeVideoConfiguration<TransformKeyframeValue>()
 
-                let timeValues: [(Double, (CGFloat, CGFloat, CGPoint))] =
-                    [(0.0, (1.0, 0, CGPoint.zero)),
-                     (1.0, (1.0, CGFloat.pi, CGPoint(x: 100, y: 80))),
-                     (2.0, (1.0, CGFloat.pi * 2, CGPoint(x: 300, y: 240))),
-                     (3.0, (1.0, 0, CGPoint.zero))]
+                let timeValues: [(Double, (CGPoint, CGFloat, CGPoint))] =
+                [(0.0, (.init(x: 1, y: 1), 0, CGPoint.zero)),
+                     (1.0, (.init(x: 1, y: 1), CGFloat.pi, CGPoint(x: 100, y: 80))),
+                     (2.0, (.init(x: 1, y: 1), CGFloat.pi * 2, CGPoint(x: 300, y: 240))),
+                     (3.0, (.init(x: 1, y: 1), 0, CGPoint.zero))]
                 timeValues.forEach({ (time, value) in
                     let opacityKeyframeValue = TransformKeyframeValue()
                     opacityKeyframeValue.scale = value.0
@@ -192,11 +192,11 @@ class ViewController: UITableViewController {
             let transformKeyframeConfiguration: KeyframeVideoConfiguration<TransformKeyframeValue> = {
                 let configuration = KeyframeVideoConfiguration<TransformKeyframeValue>()
                 
-                let timeValues: [(Double, (CGFloat, CGFloat, CGPoint))] =
-                    [(0.0, (1.0, 0, CGPoint.zero)),
-                     (1.0, (1.2, CGFloat.pi / 20, CGPoint(x: 100, y: 80))),
-                     (2.0, (1.5, CGFloat.pi / 15, CGPoint(x: 300, y: 240))),
-                     (3.0, (1.0, 0, CGPoint.zero))]
+                let timeValues: [(Double, (CGPoint, CGFloat, CGPoint))] =
+                    [(0.0, (.init(x: 1, y: 1), 0, CGPoint.zero)),
+                     (1.0, (.init(x: 1.2, y: 1.2), CGFloat.pi / 20, CGPoint(x: 100, y: 80))),
+                     (2.0, (.init(x: 1.5, y: 1.5), CGFloat.pi / 15, CGPoint(x: 300, y: 240))),
+                     (3.0, (.init(x: 1, y: 1), 0, CGPoint.zero))]
                 timeValues.forEach({ (time, value) in
                     let opacityKeyframeValue = TransformKeyframeValue()
                     opacityKeyframeValue.scale = value.0
