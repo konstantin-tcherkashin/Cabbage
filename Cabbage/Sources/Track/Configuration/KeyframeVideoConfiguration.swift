@@ -123,7 +123,7 @@ public class KeyframeVideoConfiguration<Value: KeyframeValue>: VideoConfiguratio
 
 public class TransformKeyframeValue: KeyframeValue {
     
-    public var scale: CGFloat = 1.0
+    public var scale: CGPoint = .init(x: 1, y: 1)
     public var rotation: CGFloat = 0
     public var translation: CGPoint = CGPoint.zero
     
@@ -152,9 +152,10 @@ public class TransformKeyframeValue: KeyframeValue {
         
         var transform = CGAffineTransform.identity
         transform = transform.concatenating(CGAffineTransform(translationX: -(sourceImage.extent.origin.x + sourceImage.extent.width/2), y: -(sourceImage.extent.origin.y + sourceImage.extent.height/2)))
-        
-        let scale = fromValue.scale + (toValue.scale - fromValue.scale) * param.tween
-        transform = transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
+
+        let scaleX = fromValue.scale.x + (toValue.scale.x - fromValue.scale.x) * param.tween
+        let scaleY = fromValue.scale.y + (toValue.scale.y - fromValue.scale.y) * param.tween
+        transform = transform.concatenating(CGAffineTransform(scaleX: scaleX, y: scaleY))
         
         let rotation = fromValue.rotation + (toValue.rotation - fromValue.rotation) * param.tween
         transform = transform.concatenating(CGAffineTransform(rotationAngle: rotation))

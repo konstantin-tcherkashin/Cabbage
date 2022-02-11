@@ -17,16 +17,28 @@ open class VideoCompositor: NSObject, AVFoundation.AVVideoCompositing  {
     private var renderContextDidChange = false
     private var shouldCancelAllRequests = false
     private var renderContext: AVVideoCompositionRenderContext?
+
+#if targetEnvironment(macCatalyst)
+    public var sourcePixelBufferAttributes: [String : Any]? = [
+        String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange
+    ]
+
+    public var requiredPixelBufferAttributesForRenderContext: [String : Any] = [
+        String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange
+    ]
+#else
+    public var sourcePixelBufferAttributes: [String : Any]? = [
+        String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
+        String(kCVPixelBufferOpenGLESCompatibilityKey): true
+    ]
+
+    public var requiredPixelBufferAttributesForRenderContext: [String : Any] = [
+        String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
+        String(kCVPixelBufferOpenGLESCompatibilityKey): true
+    ]
+#endif
     
-    public var sourcePixelBufferAttributes: [String : Any]? =
-        [String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
-         String(kCVPixelBufferOpenGLESCompatibilityKey): true,
-         String(kCVPixelBufferMetalCompatibilityKey): true]
-    
-    public var requiredPixelBufferAttributesForRenderContext: [String : Any] =
-        [String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA,
-         String(kCVPixelBufferOpenGLESCompatibilityKey): true,
-         String(kCVPixelBufferMetalCompatibilityKey): true]
+
     
     open func renderContextChanged(_ newRenderContext: AVVideoCompositionRenderContext) {
         renderContextQueue.sync(execute: { [weak self] in
@@ -74,7 +86,7 @@ open class VideoCompositor: NSObject, AVFoundation.AVVideoCompositing  {
         
         // Background
         let backgroundImage = CIImage(color: instruction.backgroundColor).cropped(to: image.extent)
-        image = backgroundImage
+        image = backgroundImage.composited(over: image)
         
         if let destinationImage = instruction.apply(request: request) {
             image = destinationImage.composited(over: image)

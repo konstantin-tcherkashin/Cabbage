@@ -7,7 +7,6 @@
 //
 
 import Photos
-import UIKit
 
 public class PHAssetLivePhotoResource: AVAssetTrackResource {
     public var phasset: PHAsset?

@@ -157,8 +157,8 @@ public class CompositionGenerator {
                                         return false
                                     }
                                 }
+                                return true
                             }
-                            return true
                         }
                         return false
                     }) {
@@ -188,7 +188,6 @@ public class CompositionGenerator {
             }
         }
         self.composition = composition
-        self.needRebuildComposition = false
         return composition
     }
     
@@ -243,7 +242,7 @@ public class CompositionGenerator {
         videoComposition.instructions = instructions
         videoComposition.customVideoCompositorClass = VideoCompositor.self
         self.videoComposition = videoComposition
-        self.needRebuildVideoComposition = false
+        
         return videoComposition
     }
     
@@ -304,7 +303,6 @@ public class CompositionGenerator {
         let audioMix = AVMutableAudioMix()
         audioMix.inputParameters = audioParameters
         self.audioMix = audioMix
-        self.needRebuildAudioMix = false
         return audioMix
     }
     

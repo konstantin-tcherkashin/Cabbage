@@ -12,6 +12,8 @@ import CoreMedia
 public protocol ImageCompositionProvider: CompositionTimeRangeProvider, VideoCompositionProvider {}
 
 public class ImageCompositionGroupProvider: VideoCompositionProvider {
+
+    public init() { }
     
     public var passingThroughVideoCompositionProvider: VideoCompositionProvider?
     public var imageCompositionProviders: [ImageCompositionProvider] = []
@@ -31,7 +33,5 @@ public class ImageCompositionGroupProvider: VideoCompositionProvider {
         
         return sourceImage
     }
-    
-    public init() { }
     
 }
