@@ -56,8 +56,6 @@ public class VideoConfiguration: NSObject, VideoConfigurationProtocol {
     
     // MARK: - VideoConfigurationProtocol
 
-    lazy var context = UIGraphicsGetCurrentContext()
-    
     public func applyEffect(to sourceImage: CIImage, info: VideoConfigurationEffectInfo) -> CIImage {
         var finalImage = sourceImage
 
