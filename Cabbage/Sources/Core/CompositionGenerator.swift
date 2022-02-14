@@ -188,6 +188,7 @@ public class CompositionGenerator {
             }
         }
         self.composition = composition
+        self.needRebuildComposition = false
         return composition
     }
     
