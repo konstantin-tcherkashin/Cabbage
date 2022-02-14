@@ -25,7 +25,7 @@ open class VideoCompositor: NSObject, AVFoundation.AVVideoCompositing  {
     ]
 
     public var requiredPixelBufferAttributesForRenderContext: [String : Any] = [
-        String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
+        String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA,
         String(kCVPixelBufferMetalCompatibilityKey): true
     ]
 #else
@@ -36,7 +36,7 @@ open class VideoCompositor: NSObject, AVFoundation.AVVideoCompositing  {
     ]
 
     public var requiredPixelBufferAttributesForRenderContext: [String : Any] = [
-        String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
+        String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA,
         String(kCVPixelBufferOpenGLESCompatibilityKey): true,
         String(kCVPixelBufferMetalCompatibilityKey): true
     ]

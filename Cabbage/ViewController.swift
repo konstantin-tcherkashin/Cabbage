@@ -65,8 +65,11 @@ class ViewController: UITableViewController {
     
     func overlayPlayerItem() -> AVPlayerItem? {
         let bambooTrackItem: TrackItem = {
-            let url = Bundle.main.url(forResource: "bamboo", withExtension: "mp4")!
-            let resource = AVAssetTrackResource(asset: AVAsset(url: url))
+//            let url = Bundle.main.url(forResource: "bamboo", withExtension: "mp4")!
+//            let resource = AVAssetTrackResource(asset: AVAsset(url: url))
+            let img = CIImage(cgImage: UIImage(named: "something")!.cgImage!)
+            let duration = CMTime(seconds: 7, preferredTimescale: 600)
+            let resource = ImageResource(image: img, duration: duration)
             let trackItem = TrackItem(resource: resource)
             trackItem.videoConfiguration.contentMode = .aspectFit
             return trackItem
@@ -130,10 +133,17 @@ class ViewController: UITableViewController {
         
         timeline.renderSize = CGSize(width: 1920, height: 1080)
         let compositionGenerator = CompositionGenerator(timeline: timeline)
+
+        exportSession = compositionGenerator.buildExportSession(presetName: AVAssetExportPresetHighestQuality)
+        exportSession?.exportAsynchronously {
+            print("exportSession?.error", self.exportSession?.error, "exportSession?.outputURL", self.exportSession?.outputURL)
+        }
         let playerItem = compositionGenerator.buildPlayerItem()
         return playerItem
     }
-    
+
+    var exportSession: AVAssetExportSession?
+
     func transitionPlayerItem() -> AVPlayerItem? {
         let bambooTrackItem: TrackItem = {
             let url = Bundle.main.url(forResource: "bamboo", withExtension: "mp4")!
